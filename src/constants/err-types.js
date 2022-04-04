@@ -1,0 +1,11 @@
+const NAME_OR_PASSWORD_IS_NOT_REQUIRE = '用户名或者密码不能为空'
+const USER_ALREADY_EXISTS = '用户已存在'
+const USER_NOT_EXISTS = '用户不存在'
+const PASSWORD_IS_INCORRENT = '密码不正确'
+
+module.exports = {
+    NAME_OR_PASSWORD_IS_NOT_REQUIRE,
+    USER_ALREADY_EXISTS,
+    USER_NOT_EXISTS,
+    PASSWORD_IS_INCORRENT
+}
