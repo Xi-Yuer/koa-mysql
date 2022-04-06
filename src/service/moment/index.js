@@ -1,5 +1,4 @@
 const connection = require("../../app/database");
-
 const { SelectMomentFragment } = require("../SQLFragment");
 
 class MomentService {

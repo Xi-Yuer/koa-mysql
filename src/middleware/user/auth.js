@@ -5,7 +5,7 @@ const {
 } = require("../../constants/err-types");
 
 const { getUserByName } = require("../../service/user");
-const { checkMoment } = require('../../service/authService')
+const { checkPermission } = require('../../service/authService')
 
 const md5password = require('../../utils/password-handle')
 
@@ -74,10 +74,12 @@ const verifyAuth = async (ctx,next) =>{
 // 用户是否具有修改动态的权限
 const verifyPermission = async (ctx, next) => {
   // 获取参数
-  const { momentId } = ctx.params
+  const [ resourceKey ] = Object.keys(ctx.params)
   const { id:userId } = ctx.user 
+  const tableName = Object.keys(ctx.params)[0].replace('Id', '')
+  const resourceId = ctx.params[resourceKey]
   // 查询是否具备权限
-  const isPermission = await checkMoment(momentId, userId)
+  const isPermission = await checkPermission(tableName, resourceId, userId)
   if(!isPermission){
     return ctx.body = {
       status:0,

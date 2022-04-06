@@ -15,7 +15,7 @@ class AuthController {
     ctx.body = {
       status: 1,
       data: { id, name, token },
-      message: "success",
+      message: "登录成功",
     };
     
   }

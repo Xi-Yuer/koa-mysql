@@ -7,7 +7,7 @@ const {
 } = require("../../service/moment");
 
 class MomentController {
-  //发布
+  //发布动态
   async create(ctx, next) {
     // 获取发布者以及内容数据
     const userId = ctx.user.id; //在登录验证中间件中将user信息放入到了ctx中，这里可以直接获取到
@@ -20,7 +20,7 @@ class MomentController {
       message: "发布成功",
     };
   }
-  // 获取
+  // 获取动态
   async detail(ctx, next) {
     // 获取动态id
     const momentId = ctx.params.momentId;
@@ -32,6 +32,7 @@ class MomentController {
       message: "success",
     };
   }
+  // 获取动态
   async list(ctx, next) {
     // 获取查询数据的条数（offset，limit）
     const { offset, limit } = ctx.query;
@@ -44,7 +45,7 @@ class MomentController {
       message: "success",
     };
   }
-  // 修改
+  // 修改动态
   async update(ctx, next) {
     // 获取参数
     const { momentId } = ctx.params;
@@ -56,7 +57,7 @@ class MomentController {
       message: `修改内容成功`,
     };
   }
-  // 删除
+  // 删除动态
   async remove(ctx, next) {
     // 获取参数
     const { momentId } = ctx.params;
