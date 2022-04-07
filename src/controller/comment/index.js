@@ -1,4 +1,4 @@
-const { create, reply, update, remove, authIsLike } = require("../../service/comment");
+const { create, reply, update, remove, getCommentsByMomentId } = require("../../service/comment");
 class commentCtroller {
   async create(ctx, next) {
     // 获取动态id，用户id和评论内容
@@ -43,6 +43,11 @@ class commentCtroller {
       message: "删除评论成功",
       data: result,
     };
+  }
+  async list(ctx,next) {
+    const { offset, limit, momentId } = ctx.query
+    const result = await getCommentsByMomentId(momentId, offset ,limit,)
+    ctx.body = result
   }
 }
 

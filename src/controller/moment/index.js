@@ -4,6 +4,8 @@ const {
   getMomentList,
   update,
   remove,
+  hasLabel,
+  addLabels,
 } = require("../../service/moment");
 
 class MomentController {
@@ -28,7 +30,7 @@ class MomentController {
     const result = await getMomentById(momentId);
     ctx.body = {
       status: 1,
-      data: result[0],
+      data: result,
       message: "success",
     };
   }
@@ -67,6 +69,26 @@ class MomentController {
     ctx.body = {
       status: 1,
       message: "删除成功",
+    };
+  }
+  // 给动态添加标签
+  async addLabels(ctx, next) {
+    // 获取到需要给文章添加的标签以及动态的id
+    const { labels } = ctx;
+    const { momentId } = ctx.params;
+    // 创建动态和标签的关系表
+    for (let label of labels) {
+      // 判断该动态是否已经有该标签
+      const isExist = await hasLabel(momentId, label.id);
+      // 如果不存在
+      if (!isExist) {
+        // 如果文章不存在该标签，才需要给文章创建标签
+        await addLabels(momentId, label.id);
+      }
+    }
+    ctx.body = {
+      status: 1,
+      message: "给动态添加标签成功",
     };
   }
 }
