@@ -10,4 +10,5 @@ module.exports = {
   MYSQL_DATABASE,
   MYSQL_ROOT,
   MYSQL_PASSWORD,
+  APP_HOST
 } = process.env;

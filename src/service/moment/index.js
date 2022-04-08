@@ -9,14 +9,14 @@ class MomentService {
   }
   async getMomentById(momentId) {
     const statement = SelectMomentFragment();
-
+    
     const [result] = await connection.query(statement, [momentId]);
     return result;
   }
 
   async getMomentList(offset = 0, limit = 10) {
     const statement = `SELECT m.id id,m.content content, m.likeCount,m.createAt createTime,m.updateAt updateTime,
-    JSON_OBJECT('id',u.id,'name',u.name) author,
+    JSON_OBJECT('id',u.id,'name',u.name,'avatarUrl', u.avatar_url) author,
     (SELECT COUNT(*) FROM comment c WHERE c.moment_id = m.id ) momentCount,
     (SELECT COUNT(*) FROM moment_label ml WHERE ml.moment_id = m.id ) labelCount
     FROM moment m

@@ -23,7 +23,7 @@ class CommentService {
     async getCommentsByMomentId( momentId, offset= 0, limit = 10 ) {
         const stetament = `SELECT 
         m.id,m.content,m.comment_id commentId, m.likeCount,m.createAt createTime,
-        JSON_OBJECT('id',u.id,'name',u.name) user
+        JSON_OBJECT('id',u.id,'name',u.name, 'avatartUrl',u.avatar_url) user
         FROM comment m 
         LEFT JOIN users u on u.id = m.user_id
         WHERE moment_id = ? order by m.likeCount DESC LIMIT ${offset},${limit}`
