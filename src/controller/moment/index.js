@@ -8,6 +8,11 @@ const {
   addLabels,
 } = require("../../service/moment");
 
+const { getFileByFileName } = require('../../service/file')
+const { APP_HOST, APP_PORT } = require('../../app/config')
+
+const fs = require('fs')
+
 class MomentController {
   //发布动态
   async create(ctx, next) {
@@ -91,6 +96,16 @@ class MomentController {
       message: "给动态添加标签成功",
     };
   }
+  async fileInfo(ctx, next) {
+    let { filename } = ctx.params
+    const { type } = ctx.query
+    const fileInfo = await getFileByFileName(filename)
+    const types = ['small', 'middle', 'large']
+    if (types.some(item => item === type)) { 
+      filename = filename + '-' + type
+    }
+    ctx.response.set('content-type', fileInfo.mimetype)
+    ctx.body = fs.createReadStream(`./uploads/picture/${filename}`)
+  }
 }
-
 module.exports = new MomentController();

@@ -18,6 +18,21 @@ class FileService {
         const [result] = await connection.query(statement, [userId])
         return result[0]
     }
+    async getUserInfoById(userId) {
+        const statement = `SELECT id, name,avatar_url avatarUrl, createAt createTime, updateAt updateTime FROM users WHERE id = ?`
+        const [result] = await connection.query(statement, [userId])
+        return result
+    }
+    async createPicture(filename, mimetype, size, userId, momentId) {
+        const statement = `INSERT INTO file (filename, mimetype, size, user_id, moment_id) VALUES(?,?,?,?,?)`
+        const [result] = await connection.execute(statement, [filename, mimetype, size, userId, momentId])
+        return result
+    }
+    async getFileByFileName(filename) {
+        const statement = `SELECT * FROM file WHERE filename = ?`
+        const [result] = await connection.query(statement, [filename])
+        return result[0]
+    }
 }
 
 module.exports = new FileService()

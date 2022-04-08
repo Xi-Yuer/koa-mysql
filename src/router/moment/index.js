@@ -5,7 +5,7 @@ const momentRouter = new Router({ prefix: "/moment" });
 const { verifyAuth, verifyPermission } = require("../../middleware/user/auth");
 const { verifyLabelsExists } = require('../../middleware/labels')
 
-const { create, detail, list, update, remove, addLabels } = require("../../controller/moment");
+const { create, detail, list, update, remove, addLabels, fileInfo } = require("../../controller/moment");
 
 const { like, authIsLike } = require('../../service/public')
 
@@ -25,5 +25,7 @@ momentRouter.post("/:momentId/like", verifyAuth, like("moment"))
 momentRouter.get("/:momentId/islike", verifyAuth, authIsLike('moment'))
 // 给动态添加标签
 momentRouter.post("/:momentId/labels", verifyAuth, verifyPermission, verifyLabelsExists, addLabels)
+// 获取动态配图
+momentRouter.get("/images/:filename", fileInfo)
 
 module.exports = momentRouter;

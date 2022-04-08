@@ -1,5 +1,5 @@
 const service = require("../../service/user");
-const { getAvatarByUserId } = require('../../service/file')
+const { getAvatarByUserId, getUserInfoById } = require('../../service/file')
 const fs = require('fs')
 class UserController {
   async create(ctx, next) {
@@ -24,10 +24,26 @@ class UserController {
   async avatarInfo(ctx, next) {
     const { userId } = ctx.params
     const avatarResult = await getAvatarByUserId(userId)
-    const { filename, mimetype } = avatarResult
-    // image/png
-    ctx.response.set('content-type', mimetype)
-    ctx.body = fs.createReadStream(`./uploads/avatar/${filename}`)
+    if (avatarResult) {
+      const { filename, mimetype } = avatarResult
+      // image/png
+      ctx.response.set('content-type', mimetype)
+      ctx.body = fs.createReadStream(`./uploads/avatar/${filename}`)
+    } else {
+      ctx.body = {
+        status: 0,
+        message: '获取用户头像失败'
+      }
+    }
+  }
+  async userInfo(ctx, next) {
+    const { userId } = ctx.params
+    const result = await getUserInfoById(userId)
+    ctx.body = {
+      status: 1,
+      message:"获取用户信息成功",
+      data: result
+    }
   }
 }
 
