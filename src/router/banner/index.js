@@ -1,13 +1,15 @@
 const Router = require('koa-router')
 
-const bannderRouter = new Router({ prefix: "/banner" })
-const { savaBannderImg, getAllBannerImg, getSingeBanner } = require('../../controller/banner')
+const bannerRouter = new Router({ prefix: "/banner" })
+const { savaBannderImg, getAllBannerImg, getSingeBanner, remove } = require('../../controller/banner')
 const { bannerHandler } = require('../../middleware/file')
 const { pictureResize } = require('../../middleware/file')
 // 上传轮播图
-bannderRouter.post('/', bannerHandler, pictureResize, savaBannderImg)
+bannerRouter.post('/', bannerHandler, pictureResize, savaBannderImg)
+// 删除轮播图
+bannerRouter.post("/delete/:bannerId", remove)
 // 获取轮播图
-bannderRouter.get("/", getAllBannerImg)
-bannderRouter.get("/:filename", getSingeBanner)
+bannerRouter.get("/", getAllBannerImg)
+bannerRouter.get("/:filename", getSingeBanner)
 
-module.exports = bannderRouter
+module.exports = bannerRouter

@@ -1,4 +1,4 @@
-const { createBannderImg, getAllBanner } = require('../../service/bannder')
+const { createBannderImg, getAllBanner, remove } = require('../../service/bannder')
 const { APP_HOST, APP_PORT } = require('../../app/config')
 const fs = require('fs')
 class BannerController {
@@ -26,11 +26,19 @@ class BannerController {
         let { filename } = ctx.params
         const { type } = ctx.query
         const types = ['small', 'middle', 'large']
-        if (types.some(item => item === type)) { 
+        if (types.some(item => item === type)) {
             filename = filename + '-' + type
-          }
+        }
         ctx.response.set('content-type', 'image/jpeg')
         ctx.body = fs.createReadStream(`./uploads/banner/${filename}`)
+    }
+    async remove(ctx, next) {
+        const { bannerId } = ctx.params
+        const result = await remove(bannerId)
+        ctx.body = {
+            status: 1,
+            message: "删除成功"
+        }
     }
 }
 module.exports = new BannerController()

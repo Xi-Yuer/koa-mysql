@@ -11,6 +11,11 @@ class BannderService {
         const [result] = await connection.execute(statement)
         return result
     }
+    async remove(bannerId) {
+        const statement = `DELETE FROM bannerfile WHERE id = ?`
+        const [result] = await connection.execute(statement, [bannerId])
+        return result
+    }
 }
 
 module.exports = new BannderService()
