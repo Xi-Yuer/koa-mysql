@@ -1,9 +1,5 @@
 .DS_Store
 node_modules
-test.js
-.env
-/dist
-/uploads
 
 
 # local env files
