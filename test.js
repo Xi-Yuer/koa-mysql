@@ -41,3 +41,11 @@ const connection = require('./src/app/database')
 const statement = `DELETE FROM users WHERE id = 15`
 connection.execute(statement)
 // SELECT ... FROM ... WHERE ... ORDER BY ... LIMIT ... 
+
+// APP_PORT = 8005
+// APP_HOST = http://112.124.28.77
+// MYSQL_HOST = 112.124.28.77
+// MYSQL_PORT = 3306
+// MYSQL_DATABASE = coderchat
+// MYSQL_ROOT = root
+// MYSQL_PASSWORD = 2214380963Wx
