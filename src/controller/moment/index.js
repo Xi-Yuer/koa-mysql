@@ -2,6 +2,7 @@ const {
   create,
   getMomentById,
   getMomentList,
+  getUserAllMoment,
   update,
   remove,
   hasLabel,
@@ -52,6 +53,16 @@ class MomentController {
       message: "success",
     };
   }
+  // 获取某用户全部动态
+  async userAllMoment(ctx, next) {
+    const { userId } = ctx.params
+    const result = await getUserAllMoment(userId)
+    ctx.body = {
+      status: 1,
+      data: result,
+      message: 'suceess'
+    }
+  }
   // 修改动态
   async update(ctx, next) {
     // 获取参数
@@ -101,7 +112,7 @@ class MomentController {
     const { type } = ctx.query
     const fileInfo = await getFileByFileName(filename)
     const types = ['small', 'middle', 'large']
-    if (types.some(item => item === type)) { 
+    if (types.some(item => item === type)) {
       filename = filename + '-' + type
     }
     ctx.response.set('content-type', fileInfo.mimetype)

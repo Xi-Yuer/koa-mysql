@@ -5,7 +5,7 @@ const momentRouter = new Router({ prefix: "/moment" });
 const { verifyAuth, verifyPermission } = require("../../middleware/user/auth");
 const { verifyLabelsExists } = require('../../middleware/labels')
 
-const { create, detail, list, update, remove, addLabels, fileInfo } = require("../../controller/moment");
+const { create, detail, list, userAllMoment, update, remove, addLabels, fileInfo } = require("../../controller/moment");
 
 const { like, authIsLike } = require('../../service/public')
 
@@ -15,6 +15,8 @@ momentRouter.post("/", verifyAuth, create);
 momentRouter.get("/:momentId", detail);
 // 查询多条动态
 momentRouter.get("/", list);
+// 查询某用户全部动态
+momentRouter.get("/all/:userId", userAllMoment)
 // 修改动态内容
 momentRouter.patch("/:momentId", verifyAuth, verifyPermission, update);
 // 删除动态
