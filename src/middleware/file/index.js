@@ -11,6 +11,9 @@ const avatarHandler = avatarUpload.single('avatar')
 const pictureUpload = Multer({ dest: "./uploads/picture" })
 const pictireHandler = pictureUpload.array('picture', 9)
 
+// 轮播图
+const bannerUpload = Multer({ dest: "./uploads/banner" })
+const bannerHandler = bannerUpload.array('banner', 20)
 // 处理图片
 const pictureResize = async (ctx, next) => {
     // 获取所有图像信息(sharp/jimp)
@@ -30,5 +33,6 @@ const pictureResize = async (ctx, next) => {
 module.exports = {
     avatarHandler,
     pictireHandler,
-    pictureResize
+    pictureResize,
+    bannerHandler
 }
