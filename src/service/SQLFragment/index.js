@@ -8,7 +8,7 @@ const SelectMomentFragment = () => {
     JSON_OBJECT( 'id', l.id, 'name', l.name))
     ,NULL) labels,
     (SELECT IF(COUNT( c.id ),JSON_ARRAYAGG(
-    JSON_OBJECT('id', c.id,'content', c.content,'commentId', c.comment_id,'createTime', c.createAt,
+    JSON_OBJECT('id', c.id,'content', c.content,c.likeCount,'commentId', c.comment_id,'createTime', c.createAt,
     'user', JSON_OBJECT( 'id', cu.id,'name', cu.name,'avatarUrl', cu.avatar_url))
     ) , NULL) 
     FROM comment c 
